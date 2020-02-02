@@ -56,7 +56,7 @@ if __name__ == '__main__':
     item_infos = pd.read_csv('ml-100k/u.item', sep='|', engine='python', names=names, dtype=dtype,
                              usecols=usecols, parse_dates=['release_date'])
 
-    item_infos['release_date'] = item_infos['release_date'].map(lambda x: x.value)
+    item_infos['release_date'] = item_infos['release_date'].map(lambda x: x.value if pd.notnull(x) else np.nan)
     item_infos['title'].replace('unknown', np.nan, inplace=True)
 
     genres = item_infos.drop(columns=['item', 'title', 'release_date'])
